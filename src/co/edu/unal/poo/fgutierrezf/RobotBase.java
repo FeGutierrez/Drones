@@ -1,4 +1,4 @@
-package unal.poo.practica;
+package co.edu.unal.poo.fgutierrezf;
 
 import becker.robots.*;
 
@@ -19,23 +19,25 @@ public class RobotBase
             
             //Direction.NORTH, EAST, SOUTH, WEST
             //Definicion de la ubicacion del robot, Ciudad, posicion, Direccion, Numero things en el bolso.
-            estudiante = new Drone(objetos,0, 2, Direction.EAST,10);
+            estudiante = new Sembrador(2,objetos,0, 2, Direction.EAST,10);
             
-            Flor flor = new Flor(objetos, 0, 3);
-            Flor flor2 = new Flor(objetos, 0, 4);
-            Semaforo semaforo = new Semaforo(objetos, 0, 6);
+            Planta flor = new Planta(objetos, 0, 3, 15, 5, 2);
+            Planta flor3 = new Planta(objetos, 0, 3, 15, 5, 2);
+            Planta flor4 = new Planta(objetos, 0, 3, 15, 5, 2);
+            Planta flor2 = new Planta(objetos, 0, 4, 15, 4 ,3);
+            //Semaforo semaforo = new Semaforo(objetos, 0, 6);
 	    //Mover una interseccion en el sentido al cual este apuntando el objeto.
             estudiante.move ();
             
-            Thing t = estudiante.examineThings(new FlorPred()).next();
-            if(t instanceof Flor){
-               estudiante.pickThing();
-            }
+            //Thing t = estudiante.examineThings(new FlorPred()).next();
+            //if(t instanceof Flor){
+            //   estudiante.pickThing();
+            //}
             
             estudiante.move();
-            semaforo.cambiarEstado();
-            Thread.sleep(500);
-            semaforo.cambiarEstado();
+            //semaforo.cambiarEstado();
+            //Thread.sleep(500);
+            //semaforo.cambiarEstado();
            
             
             
