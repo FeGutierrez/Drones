@@ -21,7 +21,10 @@ public class Bicon  extends Icon
     try
     {
       BufferedImage bi = ImageIO.read(new File(this.icono));
-      g.drawImage(bi, 20, 30, 84, 78, 0, 0, 38, 23, null);
+      //g.drawImage(cat, dx1,dy1, dx2,dy2, sx1, sy1 , sx2 ,sy2, this)***********
+      g.drawImage(bi, 20, 30, 84, 78, 0, 0, 32, 32, null);
+      //Al escoger otro segmento del .PNG,  el sembrador desaparece 
+      //g.drawImage(bi, 20, 30, 84, 78, 160, 0, 192, 32, null);
     }
     catch (IOException e)
     {

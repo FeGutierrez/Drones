@@ -19,7 +19,7 @@ public class Flor extends Thing
     public Flor(City city, int i, int i1) {
         super(city, i, i1);
         //setColor(Color.red);
-         setIcon(new Bicon("SuperMario.gif"));
+         setIcon(new Bicon("flower_cut.jpg"));
     }
     
     

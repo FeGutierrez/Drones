@@ -17,9 +17,12 @@ import becker.robots.icons.Icon;
 public class Panel extends Thing{
 
     public String icono;
+    private int cargaRestante;
     
-    public Panel(City city, int i, int i1) {
+    public Panel(City city, int i, int i1, int cargaRestante) {
         super(city, i, i1);
+        this.cargaRestante = cargaRestante;
+        setIcon(new Bicon("solar_panel.jpg"));
     }
     
     
