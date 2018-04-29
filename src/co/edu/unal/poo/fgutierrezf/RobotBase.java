@@ -7,6 +7,14 @@ import becker.robots.*;
  * @author Fabian Andres Giraldo */
 public class RobotBase
 {    
+    
+        //Al llegar el combustible de un Robot a Cero, la estructura que he adoptado detiene todo el proceso.
+        //¿Con el uso de threads se elimina ese inconveniente?
+        //¿Hay una función que detenga un robot, sin necesidad de usar un break éxplicito?
+    //La condicion del combustible para retornar la coloque en la distancia+1 para asegurar que el robot llegara al panel
+    //Ya que hay casos como por ejemplo interseccion_sub_1: Combustible 5 Distancia: 4
+    //E interseccion_sub_2 Combustible 4 Distancia 5 En ese caso el robot se quedará sin energia antes de siquiera llegar al panel
+        
        //Declaracion de Variables -- Forma temporal - No es buena practica tener
        //variables estaticas
         //public static City objetos;
@@ -64,27 +72,33 @@ public class RobotBase
             
             //Direction.NORTH, EAST, SOUTH, WEST
             //Definicion de la ubicacion del robot, Ciudad, posicion, Direccion, Numero things en el bolso.
-            estudiante = new Sembrador(5,objetos,0, 2, Direction.EAST,10);
-            estudiante2 = new Monitor(objetos,1, 3, Direction.EAST,10);
+            estudiante = new Sembrador(5,objetos,0, 0, Direction.EAST,100);
+            estudiante2 = new Monitor(objetos,0, 0, Direction.EAST,20);
             
-            Monitor estudiante3 = new Monitor(objetos,0, 0, Direction.EAST,10);
+            //Robot robot = new Robot(objetos, 0, 0, Direction.SOUTH);
             
-            Robot robot = new Robot(objetos, 0, 0, Direction.SOUTH);
+//            System.out.println("Av:" + robot.getAvenue());
+//            System.out.println("St:" + robot.getStreet());
             
-            System.out.println("Av:" + robot.getAvenue());
-            System.out.println("St:" + robot.getStreet());
-            
-            panel1 = new Panel(objetos, 4, 3, 10);
+            panel1 = new Panel(objetos, 4, 3, 25);
             
             //estudiante3.irACoordenada(3, 3);
             
-            estudiante.recorrerZonaRectangular(3);
+           estudiante.recorrerZonaRectangular(7);
+           Thread.sleep(500);
+           Thread.sleep(500);
+           estudiante2.monitorearZonaRectangular(7, 20, 20, estudiante, 5);
 //          
 
-            estudiante2.irACoordenada(0, 2);
+            //estudiante2.irACoordenada(0, 2);
 //            estudiante2.realizarMonitoreo(0, 0, 1, 4);
-            estudiante2.monitorearZonaRectangular(3,3,3, estudiante, 5);
-            estudiante2.irACoordenada(-1, -1);
+            //estudiante2.monitorearZonaRectangular(3,3,3, estudiante, 5);
+//            estudiante2.irACoordenada(0, 0);
+//            
+//            System.out.println(objetos.getPanelSolar());
+//            System.out.println(estudiante2.calcularDistanciaAPanel());
+//            
+            //estudiante2.recargarEnergia();
 //            System.out.println("Fertilizante: " + estudiante2.getPlanta().getCantidadFertilizante());
 //            System.out.println("HUmedad: " +estudiante2.getPlanta().getHumedad());
 //            System.out.println("Temperatura: " +estudiante2.getPlanta().getTemperatura());
@@ -114,7 +128,7 @@ public class RobotBase
 ////            estudiante.move();
 ////            System.out.println(estudiante.getEnergia());
             //semaforo.cambiarEstado();
-            //Thread.sleep(500);
+//            Thread.sleep(500);
             //semaforo.cambiarEstado();
            
             

@@ -4,10 +4,11 @@ Imagenes tomadas de:
  */
 package co.edu.unal.poo.fgutierrezf;
 
-import becker.robots.City;
+//import becker.robots.City;
 import co.edu.unal.poo.fgutierrezf.Ciudad;
 import becker.robots.Direction;
 import becker.robots.Robot;
+import co.edu.unal.poo.fgutierrezf.Panel;
 
 /**
  *
@@ -29,8 +30,24 @@ public abstract class Drone extends Robot{
     
     @Override
     public synchronized void move(){
-        super.move();
-        consumirEnergia();
+        if (this.energia>0) {
+            super.move();
+            consumirEnergia();
+            System.out.println("Energia: " + this.energia);
+        }
+    }
+    
+    
+    public void irPanelEnergia(){
+        int a = this.getCiudad().getPanelSolar().getStreet();
+        int b = this.getCiudad().getPanelSolar().getAvenue();
+        irACoordenada(a, b);
+    }
+    
+    public void recargarEnergia(){
+        this.irPanelEnergia();
+        this.cargarEnergia(this.getCiudad().getPanelSolar().getCargaRestante());
+        
     }
     
     public void irStreet(int street){
@@ -82,7 +99,16 @@ public abstract class Drone extends Robot{
     
     public void cargarEnergia(int cargaAdicional){
         if(cargaAdicional>0){
-            this.energia += cargaAdicional;
+            int i=0;
+            while (i<cargaAdicional) {                
+                this.energia += 1;
+                this.ciudad.getPanelSolar().setCargaRestante(cargaAdicional-(i+1));
+                System.out.println("Energia drone " + this.energia);
+                System.out.println("Energia panel: " + this.ciudad.getPanelSolar().getCargaRestante());
+                i +=1;
+            }
+            
+            
         }
     }
     
@@ -92,6 +118,26 @@ public abstract class Drone extends Robot{
     
     public boolean irZonadeCarga(int x,int  y, int a, int b){
         return false;
+    }
+    
+    public int calcularDistanciaAPanel(){
+        int a = this.ciudad.getPanelSolar().getStreet();
+        int b = this.ciudad.getPanelSolar().getAvenue();
+        int c = this.getStreet();
+        int d = this.getAvenue();
+        int y=(a-c);
+        int x=(b-d);
+        int res=0;
+        //a = y2 b = x2
+        if (y<0) {
+            y *= -1;
+        }
+        if (x<0) {
+            x *= -1;
+        }
+        res = x+y;
+        
+        return res;
     }
     
     public void turnRight(){

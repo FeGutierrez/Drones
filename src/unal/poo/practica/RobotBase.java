@@ -19,7 +19,7 @@ public class RobotBase
             
             //Direction.NORTH, EAST, SOUTH, WEST
             //Definicion de la ubicacion del robot, Ciudad, posicion, Direccion, Numero things en el bolso.
-            estudiante = new Drone(objetos,0, 2, Direction.EAST,10);
+            //estudiante = new Drone(objetos,0, 2, Direction.EAST,10);
             
             Flor flor = new Flor(objetos, 0, 3);
             Flor flor2 = new Flor(objetos, 0, 4);

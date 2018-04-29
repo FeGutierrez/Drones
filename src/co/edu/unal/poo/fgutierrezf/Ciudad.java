@@ -16,6 +16,7 @@ import java.util.Scanner;
 public class Ciudad extends City{
     
     private ArrayList<Planta> plantas;
+    private Panel panelSolar;
 
     public Ciudad(String string) {
         super(string);
@@ -25,6 +26,16 @@ public class Ciudad extends City{
     public ArrayList<Planta> getPlantas() {
         return plantas;
     }
+
+    public Panel getPanelSolar() {
+        return panelSolar;
+    }
+
+    public void setPanelSolar(Panel panelSolar) {
+        this.panelSolar = panelSolar;
+    }
+    
+    
     
     
 }

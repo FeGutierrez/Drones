@@ -44,6 +44,18 @@ public class Monitor extends Drone{
         for (int i = 0; i < 4; i++) {
             
             for (int j = 0; j < distancia-1; j++) {
+                int a = this.calcularDistanciaAPanel();
+                System.out.println("Distancia hasta el panel: "+ a);
+                if ((this.energia)<=a+1) {
+                    Direction dirAct = this.getDirection();
+                    int stAct = this.getStreet();
+                    int avAct = this.getAvenue();
+                    this.recargarEnergia();
+                    this.irACoordenada(stAct, avAct);
+                    while (this.getDirection()!=dirAct){
+                        this.turnLeft();
+                    }
+                }
                 if (this.canPickThing()==true) {
                     this.medirFertilizante(cantFertilizante, this.getStreet(), this.getAvenue(), ayudante);
                     this.realizarMonitoreoTempHum(humedad, temperatura, this.getStreet(), this.getAvenue());
@@ -77,10 +89,12 @@ public class Monitor extends Drone{
                 System.out.println(planta.getCantidadFertilizante());
             }
             if (cantFertilizante>this.planta.getCantidadFertilizante()) {
+                int st = ayudante.getStreet();
+                int av = ayudante.getAvenue();
                 ayudante.irACoordenada(this.getStreet(), this.getAvenue());
                 this.planta.adicionarFertilizante(20); 
                 System.out.println("Fertilizante" + planta.getCantidadFertilizante());
-                ayudante.irACoordenada(0, 2);
+                ayudante.irACoordenada(st, av);
             }
         }
         return 0;

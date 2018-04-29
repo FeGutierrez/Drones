@@ -37,10 +37,29 @@ public class Sembrador extends Drone {
     public void recorrerZonaRectangular(int cantidad){
         for (int i = 0; i < 4; i++) {
             
+
+            
             for (int j = 0; j < cantidad-1; j++) {
+
+                int a = this.calcularDistanciaAPanel();
+                System.out.println("Distancia hasta el panel: "+ a);
+                if ((this.energia)<=a+1) {
+                    Direction dirAct = this.getDirection();
+                    int stAct = this.getStreet();
+                    int avAct = this.getAvenue();
+                    this.recargarEnergia();
+                    this.irACoordenada(stAct, avAct);
+                    while (this.getDirection()!=dirAct){
+                        this.turnLeft();
+                    }
+                }
                 
-                this.move();
+                //System.out.println("Combustible: " + this.energia);
+                               
                 this.sembrar(10.0+i+j, 25.0+i-j, this.semillas*3);
+                this.move();
+                
+                
                 
             }
             this.turnRight();
@@ -50,7 +69,7 @@ public class Sembrador extends Drone {
     public boolean sembrar(double humedad, double temperatura, int cantidadFertilizante){
         if (this.semillas>0) {
             //public Planta(City city, int i, int i1, double humedad, double temperatura, int cantidadFertilizante) {
-            Planta planta = new Planta(this.getCity(), this.getStreet(), this.getAvenue(), humedad, temperatura, cantidadFertilizante);
+            Planta planta = new Planta(this.getCiudad(), this.getStreet(), this.getAvenue(), humedad, temperatura, cantidadFertilizante);
             this.getCiudad().getPlantas().add(planta);
             planta.setStreet(this.getStreet());
             planta.setAvenue(this.getAvenue());
@@ -59,8 +78,5 @@ public class Sembrador extends Drone {
         }
         return false;
     }
-    
-    
-    
-    
+
 }
