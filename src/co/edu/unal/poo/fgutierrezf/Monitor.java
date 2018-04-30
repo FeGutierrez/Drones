@@ -8,6 +8,7 @@ package co.edu.unal.poo.fgutierrezf;
 import becker.robots.City;
 import becker.robots.Direction;
 import co.edu.unal.poo.fgutierrezf.Drone;
+import co.edu.unal.poo.fgutierrezf.*;
 import java.util.Scanner;
 /**
  *
@@ -27,23 +28,14 @@ public class Monitor extends Drone{
     public void consumirEnergia(){
         this.energia -= 1;
     }
-    @Override
-    public void recorrerZonaRectangular(int cantidad) {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < cantidad-1; j++) {
-                this.move();
-            }
-            this.turnRight();
-        }
-    }
     
     
-
-    public void monitorearZonaRectangular(int distancia, double humedad, double temperatura, 
-            Sembrador ayudante, int cantFertilizante){
-        for (int i = 0; i < 4; i++) {
-            
-            for (int j = 0; j < distancia-1; j++) {
+    
+    public void monitZonaRectangular(int distancia, double humedad, double temperatura, 
+            Sembrador ayudante, int cantFertilizante) {
+        
+        int j=0;
+        while (j < distancia-1) {            
                 int a = this.calcularDistanciaAPanel();
                 System.out.println("Distancia hasta el panel: "+ a);
                 if ((this.energia)<=a+1) {
@@ -56,19 +48,86 @@ public class Monitor extends Drone{
                         this.turnLeft();
                     }
                 }
-                if (this.canPickThing()==true) {
-                    this.medirFertilizante(cantFertilizante, this.getStreet(), this.getAvenue(), ayudante);
-                    this.realizarMonitoreoTempHum(humedad, temperatura, this.getStreet(), this.getAvenue());
-                    System.out.println("Temperatura: " + this.getPlanta().getTemperatura());
-                }
+                this.monitor(distancia, humedad, temperatura, ayudante, cantFertilizante);                
                 this.move();
-            }
-            this.turnRight();
+                j+=1;
         }
-        this.planta = null;
+        this.turnLeft();
+        for (int i = 0; i < distancia; i++) {
+            j=0;
+            
+            while (j < distancia-(i+1)) {
+            int a = this.calcularDistanciaAPanel();
+            System.out.println("Distancia hasta el panel: "+ a);
+                if ((this.energia)<=a+1) {
+                    Direction dirAct = this.getDirection();
+                    int stAct = this.getStreet();
+                    int avAct = this.getAvenue();
+                    this.recargarEnergia();
+                    this.irACoordenada(stAct, avAct);
+                    while (this.getDirection()!=dirAct){
+                        this.turnLeft();
+                    }
+                }
+                this.monitor(distancia, humedad, temperatura, ayudante, cantFertilizante);
+                this.move();
+                j+=1;
+            }
+            this.turnLeft();
+            j=0;
+            while (j < distancia-(i+1)) { 
+                this.monitor(distancia, humedad, temperatura, ayudante, cantFertilizante);
+                this.move();
+                j+=1;
+            }
+            this.turnLeft();
+        }
+//        for (int i = 0; i < 10; i++) {
+//            for (int j = 0; j < cantidad-1; j++) {
+//                this.move();
+//            }
+//            this.turnRight();
+//        }
+        this.monitor(distancia, humedad, temperatura, ayudante, cantFertilizante);                
     }
     
-
+    public void monitor(int distancia, double humedad, double temperatura, 
+            Sembrador ayudante, int cantFertilizante){
+        if (this.canPickThing()==true) {
+            this.medirFertilizante(cantFertilizante, this.getStreet(), this.getAvenue(), ayudante);
+            this.realizarMonitoreoTempHum(humedad, temperatura, this.getStreet(), this.getAvenue());
+            System.out.println("Temperatura: " + this.getPlanta().getTemperatura());
+        }        
+    }
+//    
+//    public void monitorearZonaRectangular(int distancia, double humedad, double temperatura, 
+//            Sembrador ayudante, int cantFertilizante){
+//        for (int i = 0; i < 4; i++) {
+//            
+//            for (int j = 0; j < distancia-1; j++) {
+//                int a = this.calcularDistanciaAPanel();
+//                System.out.println("Distancia hasta el panel: "+ a);
+//                if ((this.energia)<=a+1) {
+//                    Direction dirAct = this.getDirection();
+//                    int stAct = this.getStreet();
+//                    int avAct = this.getAvenue();
+//                    this.recargarEnergia();
+//                    this.irACoordenada(stAct, avAct);
+//                    while (this.getDirection()!=dirAct){
+//                        this.turnLeft();
+//                    }
+//                }
+//                if (this.canPickThing()==true) {
+//                    this.medirFertilizante(cantFertilizante, this.getStreet(), this.getAvenue(), ayudante);
+//                    this.realizarMonitoreoTempHum(humedad, temperatura, this.getStreet(), this.getAvenue());
+//                    System.out.println("Temperatura: " + this.getPlanta().getTemperatura());
+//                }
+//                this.move();
+//            }
+//            this.turnRight();
+//        }
+//        this.planta = null;
+//    }
     
     public int realizarMonitoreoTempHum(double humedad, double temp, int x, int y){
         for (int i = 0; i < this.getCiudad().getPlantas().size(); i++) {
@@ -117,6 +176,13 @@ public class Monitor extends Drone{
     public void setPlanta(Planta planta) {
         this.planta = planta;
     }
+
+    @Override
+    public void recorrerZonaRectangular(int cantidad) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
 
 
     

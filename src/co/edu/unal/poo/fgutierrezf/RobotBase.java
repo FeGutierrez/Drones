@@ -1,6 +1,7 @@
 package co.edu.unal.poo.fgutierrezf;
 
 import becker.robots.*;
+import java.util.Scanner;
 
 /** 
  * Practica de los conceptos de Programacion Estructurada
@@ -68,13 +69,30 @@ public class RobotBase
 	public static void main (String[] args) throws InterruptedException{
             //Declarar la creacion de la ciudad
             //objetos = new City("Field.txt");
+            Scanner sc = new Scanner(System.in);
+            
             objetos = new Ciudad("Field.txt");
             objetos.showThingCounts(true);
+            System.out.println("¡HOLA! Bienvenido al cultivo, por favor digita los valores que quieres que los drones supervisen :) :) \n");
+            System.out.println("Digita el numero de semillas del drone sembrador");
+            int semillas = sc.nextInt();
+            System.out.println("Digita la longitud de un lado del cuadrado que quieras que el drone recorra. \n "
+                    + "Por ejemplo 7, si deseas que el drone recorra 49 intersecciones");
+            int range = sc.nextInt();
+            System.out.println("Digita temperatura a verificar: ");
+            double temp = sc.nextDouble();
+            System.out.println("Digite humedad a verificar: ");
+            double humedad = sc.nextDouble();
+            System.out.println("Digite Fertilizante a verificar: ");
+            int cantFert = sc.nextInt();
+            System.out.println("Digita el combustible de los drones (Por ahora, manejan la misma cantidad): ");
+            int energia = sc.nextInt();
             
             //Direction.NORTH, EAST, SOUTH, WEST
             //Definicion de la ubicacion del robot, Ciudad, posicion, Direccion, Numero things en el bolso.
-            estudiante = new Sembrador(100,objetos,0, 0, Direction.EAST,100);
-            estudiante2 = new Monitor(objetos,0, 0, Direction.EAST,20);
+            estudiante = new Sembrador(semillas,objetos,0, 0, Direction.EAST,energia);
+            estudiante2 = new Monitor(objetos,0, 0, Direction.EAST,energia);
+            
             
             //Robot robot = new Robot(objetos, 0, 0, Direction.SOUTH);
             
@@ -83,14 +101,21 @@ public class RobotBase
             
             panel1 = new Panel(objetos, 4, 3, 25);
             
+
+            
+            
             //estudiante3.irACoordenada(3, 3);
             
            //estudiante.recorrerZonaRectangular(7);
-           estudiante.recorrerZonaRectangular(7);
-           Thread.sleep(500);
-           Thread.sleep(500);
-           estudiante2.monitorearZonaRectangular(7, 20, 20, estudiante, 5);
-           estudiante.move();
+           estudiante.recorrerZonaRectangular(range);
+           estudiante2.monitZonaRectangular(range, humedad, temp, estudiante, cantFert);
+           
+           estudiante.irACoordenada(-1, -1);
+           estudiante2.irACoordenada(-1, -1);
+//           Thread.sleep(500);
+//           Thread.sleep(500);
+//           estudiante2.monitorearZonaRectangular(7, 20, 20, estudiante, 5);
+//           estudiante.move();
 //          
 
             //estudiante2.irACoordenada(0, 2);

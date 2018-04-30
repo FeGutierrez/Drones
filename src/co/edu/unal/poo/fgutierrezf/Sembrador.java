@@ -33,6 +33,7 @@ public class Sembrador extends Drone {
         return this.energia;
     }
     
+    @Override
     public void recorrerZonaRectangular(int cantidad){
         int j=0;
         while (j < cantidad-1) {            
@@ -48,7 +49,7 @@ public class Sembrador extends Drone {
                         this.turnLeft();
                     }
                 }
-                this.sembrar(10.0+j+1, 25.0+j, this.semillas*3);
+                this.sembrar(10.0+j+1, 25.0+j, this.semillas*4);
                 this.move();
                 j+=1;
         }
@@ -69,19 +70,22 @@ public class Sembrador extends Drone {
                         this.turnLeft();
                     }
                 }
-                this.sembrar(10.0+j+1, 25.0+j, this.semillas*3);
+                this.sembrar(10.0+j+1, 25.0+j+(i*2), this.semillas*5);
                 this.move();
                 j+=1;
             }
             this.turnLeft();
             j=0;
             while (j < cantidad-(i+1)) {                
-                this.sembrar(10.0+j+1, 25.0+j, this.semillas*3);
+                this.sembrar(10.0+j+1, 25.0+j+i, this.semillas*6);
                 this.move();
                 j+=1;
             }
+            
             this.turnLeft();
         }
+        this.sembrar(10.0+j+1, 25.0+j, 14);
+        this.irACoordenada(-1, -1);
     }
     
     
