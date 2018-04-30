@@ -17,9 +17,13 @@ import co.edu.unal.poo.fgutierrezf.*;
 public class Sembrador extends Drone {
     
     private int semillas;
+    private int stOrigen;
+    private int avOrigen;
 
     public Sembrador(int semillas, Ciudad city, int i, int i1, Direction direccion, int nThing) {
         super(city, i, i1, direccion, nThing);
+        this.stOrigen=i;
+        this.avOrigen=i1;
         this.semillas = semillas;
     }
 
@@ -85,7 +89,12 @@ public class Sembrador extends Drone {
             this.turnLeft();
         }
         this.sembrar(10.0+j+1, 25.0+j, 14);
-        this.irACoordenada(-1, -1);
+        this.irAlOrigen();
+        
+    }
+    
+    public void irAlOrigen(){
+        this.irACoordenada(this.stOrigen,this.avOrigen);
     }
     
     

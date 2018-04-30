@@ -87,6 +87,9 @@ public class RobotBase
             int cantFert = sc.nextInt();
             System.out.println("Digita el combustible de los drones (Por ahora, manejan la misma cantidad): ");
             int energia = sc.nextInt();
+            System.out.println("Digita la energía de la plata");
+            int cargaPanel = sc.nextInt();
+            
             
             //Direction.NORTH, EAST, SOUTH, WEST
             //Definicion de la ubicacion del robot, Ciudad, posicion, Direccion, Numero things en el bolso.
@@ -99,7 +102,7 @@ public class RobotBase
 //            System.out.println("Av:" + robot.getAvenue());
 //            System.out.println("St:" + robot.getStreet());
             
-            panel1 = new Panel(objetos, 4, 3, 25);
+            panel1 = new Panel(objetos, 4, 3, cargaPanel);
             
 
             
@@ -109,9 +112,6 @@ public class RobotBase
            //estudiante.recorrerZonaRectangular(7);
            estudiante.recorrerZonaRectangular(range);
            estudiante2.monitZonaRectangular(range, humedad, temp, estudiante, cantFert);
-           
-           estudiante.irACoordenada(-1, -1);
-           estudiante2.irACoordenada(-1, -1);
 //           Thread.sleep(500);
 //           Thread.sleep(500);
 //           estudiante2.monitorearZonaRectangular(7, 20, 20, estudiante, 5);
