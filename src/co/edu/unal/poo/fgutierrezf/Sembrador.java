@@ -41,18 +41,7 @@ public class Sembrador extends Drone {
     public void recorrerZonaRectangular(int cantidad){
         int j=0;
         while (j < cantidad-1) {            
-                int a = this.calcularDistanciaAPanel();
-                System.out.println("Distancia hasta el panel: "+ a);
-                if ((this.energia)<=a+1) {
-                    Direction dirAct = this.getDirection();
-                    int stAct = this.getStreet();
-                    int avAct = this.getAvenue();
-                    this.recargarEnergia();
-                    this.irACoordenada(stAct, avAct);
-                    while (this.getDirection()!=dirAct){
-                        this.turnLeft();
-                    }
-                }
+                this.suficienteCombustible();
                 this.sembrar(10.0+j+1, 25.0+j, this.semillas*4);
                 this.move();
                 j+=1;
@@ -62,25 +51,15 @@ public class Sembrador extends Drone {
             j=0;
             
             while (j < cantidad-(i+1)) {
-            int a = this.calcularDistanciaAPanel();
-            System.out.println("Distancia hasta el panel: "+ a);
-                if ((this.energia)<=a+1) {
-                    Direction dirAct = this.getDirection();
-                    int stAct = this.getStreet();
-                    int avAct = this.getAvenue();
-                    this.recargarEnergia();
-                    this.irACoordenada(stAct, avAct);
-                    while (this.getDirection()!=dirAct){
-                        this.turnLeft();
-                    }
-                }
+                this.suficienteCombustible();
                 this.sembrar(10.0+j+1, 25.0+j+(i*2), this.semillas*5);
                 this.move();
                 j+=1;
             }
             this.turnLeft();
             j=0;
-            while (j < cantidad-(i+1)) {                
+            while (j < cantidad-(i+1)) {
+                this.suficienteCombustible();
                 this.sembrar(10.0+j+1, 25.0+j+i, this.semillas*6);
                 this.move();
                 j+=1;
@@ -90,6 +69,22 @@ public class Sembrador extends Drone {
         }
         this.sembrar(10.0+j+1, 25.0+j, 14);
         this.irAlOrigen();
+        
+    }
+    
+    public void suficienteCombustible(){
+        int a = this.calcularDistanciaAPanel();
+        System.out.println("Distancia hasta el panel: "+ a);
+            if ((this.energia)<=a+1) {
+                Direction dirAct = this.getDirection();
+                int stAct = this.getStreet();
+                int avAct = this.getAvenue();
+                this.recargarEnergia();
+                this.irACoordenada(stAct, avAct);
+                while (this.getDirection()!=dirAct){
+                    this.turnLeft();
+                }
+            }
         
     }
     

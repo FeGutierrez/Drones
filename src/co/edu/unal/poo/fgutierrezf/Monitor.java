@@ -31,24 +31,11 @@ public class Monitor extends Drone{
         this.energia -= 1;
     }
     
-    
-    
     public void monitZonaRectangular(int distancia, double humedad, double temperatura, 
             Sembrador ayudante, int cantFertilizante) {
         int j=0;
-        while (j < distancia-1) {            
-                int a = this.calcularDistanciaAPanel();
-                System.out.println("Distancia hasta el panel: "+ a);
-                if ((this.energia)<=a+1) {
-                    Direction dirAct = this.getDirection();
-                    int stAct = this.getStreet();
-                    int avAct = this.getAvenue();
-                    this.recargarEnergia();
-                    this.irACoordenada(stAct, avAct);
-                    while (this.getDirection()!=dirAct){
-                        this.turnLeft();
-                    }
-                }
+        while (j < distancia-1) {
+                this.suficienteCombustible();
                 this.monitor(distancia, humedad, temperatura, ayudante, cantFertilizante);                
                 this.move();
                 j+=1;
@@ -58,25 +45,15 @@ public class Monitor extends Drone{
             j=0;
             
             while (j < distancia-(i+1)) {
-            int a = this.calcularDistanciaAPanel();
-            System.out.println("Distancia hasta el panel: "+ a);
-                if ((this.energia)<=a+1) {
-                    Direction dirAct = this.getDirection();
-                    int stAct = this.getStreet();
-                    int avAct = this.getAvenue();
-                    this.recargarEnergia();
-                    this.irACoordenada(stAct, avAct);
-                    while (this.getDirection()!=dirAct){
-                        this.turnLeft();
-                    }
-                }
+                this.suficienteCombustible();
                 this.monitor(distancia, humedad, temperatura, ayudante, cantFertilizante);
                 this.move();
                 j+=1;
             }
             this.turnLeft();
             j=0;
-            while (j < distancia-(i+1)) { 
+            while (j < distancia-(i+1)) {
+                this.suficienteCombustible();
                 this.monitor(distancia, humedad, temperatura, ayudante, cantFertilizante);
                 this.move();
                 j+=1;
@@ -88,6 +65,22 @@ public class Monitor extends Drone{
     }
         public void irAlOrigen(){
         this.irACoordenada(this.stOrigen,this.avOrigen);
+    }
+        
+    public void suficienteCombustible(){
+        int a = this.calcularDistanciaAPanel();
+            System.out.println("Distancia hasta el panel: "+ a);
+                if ((this.energia)<=a+1) {
+                    Direction dirAct = this.getDirection();
+                    int stAct = this.getStreet();
+                    int avAct = this.getAvenue();
+                    this.recargarEnergia();
+                    this.irACoordenada(stAct, avAct);
+                    while (this.getDirection()!=dirAct){
+                        this.turnLeft();
+                    }
+                }
+        
     }
     
     public void monitor(int distancia, double humedad, double temperatura, 
