@@ -33,14 +33,9 @@ public class Sembrador extends Drone {
         return this.energia;
     }
     
-    @Override
     public void recorrerZonaRectangular(int cantidad){
-        for (int i = 0; i < 4; i++) {
-            
-
-            
-            for (int j = 0; j < cantidad-1; j++) {
-
+        int j=0;
+        while (j < cantidad-1) {            
                 int a = this.calcularDistanciaAPanel();
                 System.out.println("Distancia hasta el panel: "+ a);
                 if ((this.energia)<=a+1) {
@@ -53,18 +48,65 @@ public class Sembrador extends Drone {
                         this.turnLeft();
                     }
                 }
-                
-                //System.out.println("Combustible: " + this.energia);
-                               
-                this.sembrar(10.0+i+j, 25.0+i-j, this.semillas*3);
+                this.sembrar(10.0+j+1, 25.0+j, this.semillas*3);
                 this.move();
-                
-                
-                
+                j+=1;
+        }
+        this.turnLeft();
+        for (int i = 0; i < cantidad; i++) {
+            j=0;
+            
+            while (j < cantidad-(i+1)) {
+            int a = this.calcularDistanciaAPanel();
+            System.out.println("Distancia hasta el panel: "+ a);
+                if ((this.energia)<=a+1) {
+                    Direction dirAct = this.getDirection();
+                    int stAct = this.getStreet();
+                    int avAct = this.getAvenue();
+                    this.recargarEnergia();
+                    this.irACoordenada(stAct, avAct);
+                    while (this.getDirection()!=dirAct){
+                        this.turnLeft();
+                    }
+                }
+                this.sembrar(10.0+j+1, 25.0+j, this.semillas*3);
+                this.move();
+                j+=1;
             }
-            this.turnRight();
+            this.turnLeft();
+            j=0;
+            while (j < cantidad-(i+1)) {                
+                this.sembrar(10.0+j+1, 25.0+j, this.semillas*3);
+                this.move();
+                j+=1;
+            }
+            this.turnLeft();
         }
     }
+    
+    
+//    @Override
+//    public void recorrerZonaRectangular(int cantidad){
+//        for (int i = 0; i < 4; i++) {
+//            for (int j = 0; j < cantidad-1; j++) {
+//                int a = this.calcularDistanciaAPanel();
+//                System.out.println("Distancia hasta el panel: "+ a);
+//                if ((this.energia)<=a+1) {
+//                    Direction dirAct = this.getDirection();
+//                    int stAct = this.getStreet();
+//                    int avAct = this.getAvenue();
+//                    this.recargarEnergia();
+//                    this.irACoordenada(stAct, avAct);
+//                    while (this.getDirection()!=dirAct){
+//                        this.turnLeft();
+//                    }
+//                }       
+//                this.sembrar(10.0+i+j, 25.0+i-j, this.semillas*3);
+//                this.move();
+//            }
+//            this.turnRight();
+//        }
+//    }
     
     public boolean sembrar(double humedad, double temperatura, int cantidadFertilizante){
         if (this.semillas>0) {

@@ -14,6 +14,7 @@ public class RobotBase
     //La condicion del combustible para retornar la coloque en la distancia+1 para asegurar que el robot llegara al panel
     //Ya que hay casos como por ejemplo interseccion_sub_1: Combustible 5 Distancia: 4
     //E interseccion_sub_2 Combustible 4 Distancia 5 En ese caso el robot se quedará sin energia antes de siquiera llegar al panel
+    //Pendiente **Modificar el constuctor del icon para las flores marchitas
         
        //Declaracion de Variables -- Forma temporal - No es buena practica tener
        //variables estaticas
@@ -72,7 +73,7 @@ public class RobotBase
             
             //Direction.NORTH, EAST, SOUTH, WEST
             //Definicion de la ubicacion del robot, Ciudad, posicion, Direccion, Numero things en el bolso.
-            estudiante = new Sembrador(5,objetos,0, 0, Direction.EAST,100);
+            estudiante = new Sembrador(100,objetos,0, 0, Direction.EAST,100);
             estudiante2 = new Monitor(objetos,0, 0, Direction.EAST,20);
             
             //Robot robot = new Robot(objetos, 0, 0, Direction.SOUTH);
@@ -84,10 +85,12 @@ public class RobotBase
             
             //estudiante3.irACoordenada(3, 3);
             
+           //estudiante.recorrerZonaRectangular(7);
            estudiante.recorrerZonaRectangular(7);
            Thread.sleep(500);
            Thread.sleep(500);
            estudiante2.monitorearZonaRectangular(7, 20, 20, estudiante, 5);
+           estudiante.move();
 //          
 
             //estudiante2.irACoordenada(0, 2);
